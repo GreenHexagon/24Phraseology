@@ -1,5 +1,8 @@
 <script setup>
   import { ref } from 'vue'
+  import Clearance from './Clearance.vue';
+  import formmodal from './formmodal.vue';
+import Formmodal from './formmodal.vue';
   const generatedClearance = ref("AXY1B")
   const clearanceText = ref("IFR Clearance")
 </script>
@@ -29,11 +32,9 @@
     </div>
   </div>
   <div class="main">
+    <Formmodal />
     <div class="results">
-      <h1>{{ clearanceText }}</h1>
-      <div class="clearance">
-        {{ generatedClearance }}
-      </div>
+      <Clearance />
     </div>
   </div>
 </template>
@@ -56,6 +57,13 @@
     height: 5rem;
     width: 5rem;
     border: none;
+    background-color: black;
+  }
+  .menubtn:hover {
+    background-color: rgb(75, 75, 75);
+    cursor: pointer;
+  }
+  .menubtn:active {
     background-color: black;
   }
   #clearancebtn {
