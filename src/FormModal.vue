@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <p>This is testing text</p>
+  <div></div>
 </template>
 
 <style scoped>

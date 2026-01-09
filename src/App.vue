@@ -1,10 +1,7 @@
 <script setup>
   import { ref } from 'vue'
   import Clearance from './Clearance.vue';
-  import formmodal from './formmodal.vue';
-import Formmodal from './formmodal.vue';
-  const generatedClearance = ref("AXY1B")
-  const clearanceText = ref("IFR Clearance")
+  import Formmodal from './formmodal.vue';
 </script>
 
 <template>
@@ -38,17 +35,9 @@ import Formmodal from './formmodal.vue';
     </div>
   </div>
 </template>
-<style>
-  :root {
-    --red: rgb(255, 0, 0);
-    --green: rgb(173, 255, 47);
-    --purple: rgb(150, 0, 255);
-    --gold: rgb(255, 215, 0);
-    --blue: rgb(0, 100, 255);
-  }
-</style>
 
 <style scoped>
+  
   .topbar-menu {
     display: flex;
     gap: 5%;
