@@ -8,5 +8,5 @@
   body {
     color:white;
     background-color: rgb(50, 50,50);
-    display: grid;
+    display: flex;
   }
