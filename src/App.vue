@@ -1,7 +1,7 @@
 <script setup>
   import { ref } from 'vue'
   import Clearance from './Clearance.vue';
-  import Formmodal from './formmodal.vue';
+  import FormModal from './FormModal.vue';
 </script>
 
 <template>
@@ -29,30 +29,42 @@
     </div>
   </div>
   <div class="main">
-    <Formmodal />
+    <FormModal />
     <div class="results">
       <Clearance />
     </div>
   </div>
 </template>
+<style>
+  :root {
+    --red: rgb(255, 0, 0);
+    --green: rgb(173, 255, 47);
+    --purple: rgb(150, 0, 255);
+    --gold: rgb(255, 215, 0);
+    --blue: rgb(0, 100, 255);
+  }
+  body {
+    color:white;
+    background-color: rgb(50, 50,50);
+  }
+</style>
 
 <style scoped>
-  
   .topbar-menu {
     display: flex;
     gap: 5%;
   }
-  .menubtn {
+  .menubtn, .btn {
     height: 5rem;
     width: 5rem;
     border: none;
     background-color: black;
   }
-  .menubtn:hover {
+  .menubtn:hover, .btn:hover {
     background-color: rgb(75, 75, 75);
     cursor: pointer;
   }
-  .menubtn:active {
+  .menubtn:active, .btn:active {
     background-color: black;
   }
   #clearancebtn {
