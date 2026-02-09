@@ -4,24 +4,42 @@
   const acftDialog = useTemplateRef("acftDialog")
 
   const data = ref({})
-  onMounted(async() => {
-    const response = await fetch(acftDataAPI)
-    data.value = response.json
-  })
+  let polling = null
+  async function fetchData() {
+    try {
+      const response = await fetch(acftDataAPI)
+      data.value = response.json
+    }
+    catch (err) {
+      console.error("Error fetching aircraft data: ", err)
+    }
+  }
   
-  const openDialog = () => acftDialog.value?.showModal()
-  const closeDialog = () => acftDialog.value?.close()
+  const openDialog = () => {
+    acftDialog.value?.showModal()
+    if(!polling) {
+      polling = setInterval(()=>{
+        if(acftDialog.value?.open) fetchData()
+      }, 3000)
+    }
+
+  }
+  const closeDialog = () => {
+    acftDialog.value?.close()
+    if(polling) clearInterval(polling)
+  } 
 </script>
 
 <template>
   <div class="modal">
     <button class="btn" v-on:click="openDialog">Show Aircraft</button>
     <dialog class="dialog" id="acftDialog" ref="acftDialog" @click.self="closeDialog" @cancel="closeDialog">
-      <h3>Quick test</h3>
-      <div v-for="acft in data" ref="acfts">
-        
+      <div class="dialog-content">
+        <div v-for="(info, aircraft) in data" ref="acfts">
+          <p>{{ aircraft }}</p>
+        </div>
+        <button class="btn" v-on:click="closeDialog">Close</button>
       </div>
-      <button class="btn" v-on:click="closeDialog">Close</button>
     </dialog>
   </div>
 </template>
