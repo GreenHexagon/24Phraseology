@@ -1,19 +1,27 @@
 <script setup>
-  import { useTemplateRef } from 'vue';
+  import { onMounted, ref, useTemplateRef } from 'vue';
   const acftDataAPI = "https://24data.ptfs.app/acft-data"
-  const button = useTemplateRef("acftSelect")
+  const acftDialog = useTemplateRef("acftDialog")
 
-  fetch(acftDataAPI)
-  const openDialog = () => button.value?.modal
+  const data = ref({})
+  onMounted(async() => {
+    const response = await fetch(acftDataAPI)
+    data.value = response.json
+  })
+  
+  const openDialog = () => acftDialog.value?.showModal()
+  const closeDialog = () => acftDialog.value?.close()
 </script>
 
 <template>
   <div class="modal">
-    <button class="btn" ref="acftSelect">Show Aircraft</button>
-    <dialog class="dialog" id="acftDialog">
+    <button class="btn" v-on:click="openDialog">Show Aircraft</button>
+    <dialog class="dialog" id="acftDialog" ref="acftDialog" @click.self="closeDialog" @cancel="closeDialog">
+      <h3>Quick test</h3>
       <div v-for="acft in data" ref="acfts">
-
+        
       </div>
+      <button class="btn" v-on:click="closeDialog">Close</button>
     </dialog>
   </div>
 </template>
