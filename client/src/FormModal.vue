@@ -1,7 +1,7 @@
 <script setup>
-  import { onMounted, ref, useTemplateRef } from 'vue';
+  import { ref, useTemplateRef } from 'vue';
   import axios from 'axios';
-  const acftDataAPI = "http://localhost:3000/api/acftdata"
+  const acftDataAPI = "http://localhost:3000/api/acft_data"
   const acftDialog = useTemplateRef("acftDialog")
 
   const data = ref({})
@@ -9,26 +9,27 @@
   async function fetchData() {
     try {
       const response = await axios.get(acftDataAPI)
-      data.value = response.data
-    }
-    catch (err) {
+      data.value = response.data.data ?? {}
+    } catch (err) {
       console.error("Error fetching aircraft data: ", err)
     }
   }
-  
+
   const openDialog = () => {
     acftDialog.value?.showModal()
-    if(!polling) {
-      polling = setInterval(()=>{
-        if(acftDialog.value?.open) fetchData()
+    fetchData()
+    if (!polling) {
+      polling = setInterval(() => {
+        if (acftDialog.value?.open) fetchData()
       }, 3000)
     }
-
   }
+
   const closeDialog = () => {
     acftDialog.value?.close()
-    if(polling) clearInterval(polling)
-  } 
+    clearInterval(polling)
+    polling = null
+  }
 </script>
 
 <template>
